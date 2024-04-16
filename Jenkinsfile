@@ -23,7 +23,7 @@ pipeline {
 				sh 'docker images'
 			}
 		}
-		//cmt
+		//cmt2
 		stage('Docker Tag') {
 
 			steps {
