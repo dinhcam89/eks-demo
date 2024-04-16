@@ -1,4 +1,5 @@
 pipeline {
+
     agent any
 
 	environment {
@@ -6,7 +7,7 @@ pipeline {
 	}
     
     stages{
-        stage('Build and Test'){
+        stage('Build and Test') {
             steps{
                 sh 'docker build . -t dinhcam89/node-todo-test:latest'
             }
@@ -21,19 +22,17 @@ pipeline {
 				sh 'docker images'
 			}
 		}
-		//cmt2
+		//cmt23
 		stage('Docker Tag') {
 			steps {
 				sh 'docker tag node-todo-test node-todo-test:latest'
 			}
 		}
-
 		stage('Push') {
     		// some block
 			steps{		
 				sh 'docker push dinhcam89/node-todo-test:latest'					
 			}
-		
 		}
         stage('Deploy to EKS Cluster'){
             steps{
