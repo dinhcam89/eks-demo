@@ -22,11 +22,11 @@ pipeline {
             }
         }
         //cmt234
-        stage('Docker Tag') {
-            steps {
-                sh 'docker tag node-todo-test node-todo-test:latest'
-            }
-        }
+        // stage('Docker Tag') {
+        //     steps {
+        //         sh 'docker tag node-todo-test node-todo-test:latest'
+        //     }
+        // }
         stage('Push') {
             // some block
             steps {
