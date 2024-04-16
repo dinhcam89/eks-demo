@@ -11,11 +11,11 @@ pipeline {
                 sh 'docker build -t dinhcam89/node-todo-test:latest .'
             }
         }
-        stage('Login') {
-            steps {
-                sh 'echo $DOCKERHB_CREDENTIALS_PSW | echo $DOCKERHB_CREDENTIALS_USR | docker login -u $DOCKERHB_CREDENTIALS_USR -p $DOCKERHB_CREDENTIALS_PSW'
-            }
-        }
+        // stage('Login') {
+        //     steps {
+        //         sh 'echo $DOCKERHB_CREDENTIALS_PSW | echo $DOCKERHB_CREDENTIALS_USR | docker login -u $DOCKERHB_CREDENTIALS_USR -p $DOCKERHB_CREDENTIALS_PSW'
+        //     }
+        // }
         stage('View Images') {
             steps {
                 sh 'docker images'
