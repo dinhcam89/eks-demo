@@ -1,29 +1,55 @@
 pipeline {
-    agent { label 'node-agent' }
+    agent any
+
+	environment {
+		DOCKERHB_CREDENTIALS = credentials('dockerhub')
+	}
     
     stages{
-        stage('Code'){
-            steps{
-                git url: 'https://github.com/writetoritika/node-todo-cicd.git', branch: 'master' 
-            }
-        }
         stage('Build and Test'){
             steps{
-                sh 'docker build . -t writetoritika/node-todo-test:latest'
+                sh 'docker build . -t dinhcam89/node-todo-test:latest'
             }
         }
-        stage('Push'){
+        stage('Login') {
+
+			steps {	
+				sh 'echo $DOCKERHB_CREDENTIALS_PSW | echo $DOCKERHB_CREDENTIALS_USR | docker login -u $DOCKERHB_CREDENTIALS_USR -p $DOCKERHB_CREDENTIALS_PSW'	
+				}
+		}
+        stage('View Images') {
+
+			steps {
+				sh 'docker images'
+			}
+		}
+		//cmt
+		stage('Docker Tag') {
+
+			steps {
+				sh 'docker tag node-todo-test node-todo-test:latest'
+			}
+		}
+
+		stage('Push') {
+
+    		// some block
+			steps{		
+				sh 'docker push dinhcam89/node-todo-test:latest'					
+			}
+		
+		}
+        stage('Deploy to EKS Cluster'){
             steps{
-                withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-        	     sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-                 sh 'docker push writetoritika/node-todo-test:latest'
-                }
-            }
-        }
-        stage('Deploy'){
-            steps{
-                sh "docker-compose down && docker-compose up -d"
+                sh 'kubectl apply -f deployment.yml'
             }
         }
     }
+    post {
+		always {
+			sh 'docker logout'
+		}
+
+		
+	}
 }
