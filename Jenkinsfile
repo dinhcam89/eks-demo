@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Build and Test') {
             steps {
-                sh 'docker build -t dinhcam89/node-todo-test:latest .'
+                sh 'docker build -t dinhcam89/node-todo-test .'
             }
         }
         // stage('Login') {
@@ -24,13 +24,13 @@ pipeline {
         //cmt234
         stage('Docker Tag') {
             steps {
-                sh 'docker tag node-todo-test node-todo-test:latest'
+                sh 'docker tag node-todo-test node-todo-test'
             }
         }
         stage('Push') {
             // some block
             steps {
-                sh 'docker push dinhcam89/node-todo-test:latest'
+                sh 'docker push dinhcam89/node-todo-test'
             }
         }
         stage('Deploy to EKS Cluster') {
