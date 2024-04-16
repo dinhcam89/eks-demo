@@ -1,20 +1,23 @@
 pipeline {
-
     agent any
 
     environment {
         DOCKERHB_CREDENTIALS = credentials('dockerhub')
     }
-    
-    stages{
+
+    stages {
         stage('Build and Test') {
-            steps{
+            steps {
                 sh 'docker build . -t dinhcam89/node-todo-test:latest'
             }
         }
         stage('Login') {
-            steps {    
-                sh 'echo $DOCKERHB_CREDENTIALS_PSW | echo $DOCKERHB_CREDENTIALS_USR | docker login -u $DOCKERHB_CREDENTIALS_USR -p $DOCKERHB_CREDENTIALS_PSW'    
+            steps {
+                sh '''
+                    echo $DOCKERHB_CREDENTIALS_PSW |
+                    echo $DOCKERHB_CREDENTIALS_USR |
+                    docker login -u $DOCKERHB_CREDENTIALS_USR -p $DOCKERHB_CREDENTIALS_PSW
+                '''
             }
         }
         stage('View Images') {
@@ -30,12 +33,12 @@ pipeline {
         }
         stage('Push') {
             // some block
-            steps{        
-                sh 'docker push dinhcam89/node-todo-test:latest'                    
+            steps {
+                sh 'docker push dinhcam89/node-todo-test:latest'
             }
         }
-        stage('Deploy to EKS Cluster'){
-            steps{
+        stage('Deploy to EKS Cluster') {
+            steps {
                 sh 'kubectl apply -f deployment.yml'
             }
         }
