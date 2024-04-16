@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Build and Test') {
             steps {
-                sh 'docker build . -t dinhcam89/node-todo-test:latest'
+                sh 'docker build -t dinhcam89/node-todo-test:latest .'
             }
         }
         stage('Login') {
