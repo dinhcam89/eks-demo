@@ -24,7 +24,7 @@ pipeline {
         //cmt234
         stage('Docker Tag') {
             steps {
-                sh 'docker tag node-todo-test:latest node-todo-test:latest'
+                sh 'docker tag node-todo-test node-todo-test:latest'
             }
         }
         stage('Push') {
