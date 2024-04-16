@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Build and Test') {
             steps {
-                sh 'docker build -t dinhcam89/node-todo-test .'
+                sh 'docker build -t dinhcam89/node-todo-test:latest .'
             }
         }
         // stage('Login') {
@@ -22,11 +22,11 @@ pipeline {
             }
         }
         //cmt234
-        stage('Docker Tag') {
-            steps {
-                sh 'docker tag node-todo-test dinhcam89/node-todo-test'
-            }
-        }
+        // stage('Docker Tag') {
+        //     steps {
+        //         sh 'docker tag node-todo-test:latest dinhcam89/node-todo-test:latest'
+        //     }
+        // }
         stage('Push') {
             // some block
             steps {
