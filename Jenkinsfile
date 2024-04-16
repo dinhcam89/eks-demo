@@ -14,8 +14,8 @@ pipeline {
         stage('Login') {
             steps {
                 sh '''
-                    echo $DOCKERHB_CREDENTIALS_PSW |
-                    echo $DOCKERHB_CREDENTIALS_USR |
+                    echo "$DOCKERHB_CREDENTIALS_PSW" |
+                    echo "$DOCKERHB_CREDENTIALS_USR" |
                     docker login -u $DOCKERHB_CREDENTIALS_USR -p $DOCKERHB_CREDENTIALS_PSW
                 '''
             }
