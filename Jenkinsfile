@@ -21,7 +21,7 @@ pipeline {
                 sh 'docker images'
             }
         }
-        //cmt234
+        //cmt2345
         // stage('Docker Tag') {
         //     steps {
         //         sh 'docker tag node-todo-test:latest dinhcam89/node-todo-test:latest'
