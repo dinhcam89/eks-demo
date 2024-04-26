@@ -35,6 +35,7 @@ pipeline {
         }
         stage('Deploy to EKS Cluster') {
             steps {
+                sh 'aws eks --region us-west-2 update-kubeconfig --name eks-cluster'
                 sh 'kubectl apply -f deployment.yml'
             }
         }
